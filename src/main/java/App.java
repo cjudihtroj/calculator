@@ -24,7 +24,13 @@ class TypeAndExpressions
 public class App {
 	
 	final static Logger logger = Logger.getLogger(App.class);
-	
+    /**
+     * Main entry point for the application.
+     * Configures logging based on the second command-line argument, or defaults to debug configuration.
+     * Evaluates an arithmetic expression provided as the first argument and prints the result.
+     * Handles specific exceptions such as ArithmeticException for division by zero and general exceptions.
+     * @param args args[0] is the expression to evaluate, args[1] can specify the logging level (warn, info, debug).
+     */	
     public static void main(String[] args) {
     	try
     	{
@@ -61,7 +67,14 @@ public class App {
     		logger.error("Error : "+e);
     	}
     }
-    
+
+    /**
+     * Calculates the result of the specified arithmetic expression.
+     * Supports operations for addition, subtraction, multiplication, division, and variable assignment.
+     * @param expression The arithmetic expression to evaluate.
+     * @param map Stores variables and their values if used in the expression.
+     * @return The result of the arithmetic evaluation.
+     */
     public int calculate(String expression, Map<String, Integer> map)
     {
     	logger.info("calculate method begin");
@@ -108,7 +121,12 @@ public class App {
         return 0;
     }
     
-    //This method separates operator and its arguments
+    /**
+     * Parses an arithmetic expression into its operation type and corresponding subexpressions.
+     * Determines how the expression will be evaluated in subsequent methods.
+     * @param exp The arithmetic expression as a string.
+     * @return A TypeAndExpressions object containing the operation type and extracted subexpressions.
+     */
     private TypeAndExpressions fetchTypeAndExpressionsFromString(String exp)
     {
     	logger.info("fetchTypeAndExpressionsFromString method begin");
@@ -165,7 +183,14 @@ public class App {
         return typeAndExpressions;
     }
     
-    //This is getting two arguments of operators other than let
+    /**
+     * Extracts two subexpressions from an expression wrapped in parentheses and separated by a comma.
+     * Used for binary operations like add, sub, mult, and div.
+     * Assumes the expression starts right after the operation name (e.g., "add(").
+     * Tracks parenthesis balance to correctly identify the comma separating the two subexpressions.
+     * @param exp The expression from which to extract subexpressions, starting right after the operation name.
+     * @return An array of two strings, each a subexpression to be evaluated.
+     */
     private String[] getTwoSubexpression(String exp)
     {
     	logger.info("getTwoSubexpression method begin");
@@ -196,7 +221,14 @@ public class App {
         return null;
     }
     
-   //This is getting three arguments of operator let
+    /**
+     * Extracts three subexpressions from a 'let' expression wrapped in parentheses and separated by commas.
+     * Specific to the 'let' operation, which defines a local variable and then evaluates an expression using that variable.
+     * Assumes the expression starts right after "let(" and ensures proper handling of nested parentheses.
+     * Identifies commas separating subexpressions ensuring they are not within nested parentheses.
+     * @param exp The expression from which to extract the three subexpressions.
+     * @return An array of three strings, each a subexpression to be evaluated.
+     */
     private String[] getThreeSubexpression(String exp)
     {
     	logger.info("getThreeSubexpression method begin");
