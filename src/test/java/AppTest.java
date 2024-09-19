@@ -1,10 +1,10 @@
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
+import org.junit.Test;
+import org.junit.Assert;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Unit tests for the App class.
+ * Unit tests for the App class using JUnit 4.
  */
 public class AppTest {
 
@@ -16,7 +16,7 @@ public class AppTest {
         Map<String, Integer> variables = new HashMap<>();
         App app = new App();
         int result = app.calculate("3 + 2", variables);
-        Assertions.assertEquals(5, result, "Adding 3 and 2 should return 5");
+        Assert.assertEquals("Adding 3 and 2 should return 5", 5, result);
     }
 
     /**
@@ -27,7 +27,7 @@ public class AppTest {
         Map<String, Integer> variables = new HashMap<>();
         App app = new App();
         int result = app.calculate("5 - 2", variables);
-        Assertions.assertEquals(3, result, "Subtracting 2 from 5 should return 3");
+        Assert.assertEquals("Subtracting 2 from 5 should return 3", 3, result);
     }
 
     /**
@@ -38,7 +38,7 @@ public class AppTest {
         Map<String, Integer> variables = new HashMap<>();
         App app = new App();
         int result = app.calculate("4 * 2", variables);
-        Assertions.assertEquals(8, result, "Multiplying 4 by 2 should return 8");
+        Assert.assertEquals("Multiplying 4 by 2 should return 8", 8, result);
     }
 
     /**
@@ -49,7 +49,7 @@ public class AppTest {
         Map<String, Integer> variables = new HashMap<>();
         App app = new App();
         int result = app.calculate("8 / 2", variables);
-        Assertions.assertEquals(4, result, "Dividing 8 by 2 should return 4");
+        Assert.assertEquals("Dividing 8 by 2 should return 4", 4, result);
     }
 
     /**
@@ -61,16 +61,16 @@ public class AppTest {
         variables.put("x", 5);
         App app = new App();
         int result = app.calculate("x + 3", variables);
-        Assertions.assertEquals(8, result, "Adding 3 to variable 'x' with value 5 should return 8");
+        Assert.assertEquals("Adding 3 to variable 'x' with value 5 should return 8", 8, result);
     }
 
     /**
      * Test for division by zero error.
      */
-    @Test
+    @Test(expected = ArithmeticException.class)
     public void testDivisionByZero() {
         Map<String, Integer> variables = new HashMap<>();
         App app = new App();
-        Assertions.assertThrows(ArithmeticException.class, () -> app.calculate("5 / 0", variables), "Dividing by zero should throw ArithmeticException");
+        app.calculate("5 / 0", variables);
     }
 }
